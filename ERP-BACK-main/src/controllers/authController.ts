@@ -46,7 +46,8 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).send({ error: 'Usuário não encontrado.' });
     }
 
-    // Compara a senha enviada com a senha criptografada no banco
+    // --- PONTO CRÍTICO DA VERIFICAÇÃO ---
+    // Esta linha falhará se a user.senha no banco não estiver criptografada
     if (!await bcrypt.compare(senha, user.senha)) {
       return res.status(400).send({ error: 'Senha inválida.' });
     }

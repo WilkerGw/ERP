@@ -10,10 +10,13 @@ import rateLimit from 'express-rate-limit';
 const router = Router();
 
 // --- NOVO: Rate limiter específico para a rota de login ---
+// --- CORREÇÃO SUGERIDA AQUI ---
+// Aumentamos o limite para 15 tentativas e diminuímos a janela para 15 minutos.
+// Em produção, você pode voltar para regras mais rígidas, mas 3 tentativas é muito pouco.
 const loginLimiter = rateLimit({
-  windowMs: 40 * 60 * 1000, // 40 minutos
-  max: 3, // Limita cada IP a 3 requisições de login por janela de 40 minutos
-  message: 'Muitas tentativas de login a partir deste IP. Por favor, tente novamente após 40 minutos.',
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 15, // Limita cada IP a 15 requisições de login por janela de 15 minutos
+  message: 'Muitas tentativas de login a partir deste IP. Por favor, tente novamente após 15 minutos.',
   standardHeaders: true,
   legacyHeaders: false,
 });
