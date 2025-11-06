@@ -107,7 +107,7 @@ function HomePage() {
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">
             Bem-vindo(a),{" "}
-            <span className="font-semibold text-foreground">
+            <span className="font-bold text-blue-500">
               {user?.nome || "Usuário"}
             </span>
             ! Veja um resumo do seu negócio.
@@ -116,7 +116,7 @@ function HomePage() {
         <Button
           onClick={handleLogout}
           variant="outline"
-          className="mt-4 sm:mt-0"
+          className="mt-4 sm:mt-0 cursor-pointer p-2 border border-white/10 backdrop-blur-[10px] rounded-4xl"
         >
           <LogOut className="mr-2 h-4 w-4" />
           Sair

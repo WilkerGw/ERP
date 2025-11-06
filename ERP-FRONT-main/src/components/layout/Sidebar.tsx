@@ -39,8 +39,8 @@ export default function Sidebar({ onLinkClick }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-full h-full flex flex-col bg-sidebar text-sidebar-foreground border-r border-sidebar-border">
-      <div className="p-4 border-b border-sidebar-border flex justify-center">
+    <aside className="w-auto h-full flex flex-col  border border-white/10 backdrop-blur-[10px] m-8 rounded-4xl">
+      <div className="p-4 border-b border-white/10 -border flex justify-center">
         {/* --- ALTERAÇÃO AQUI --- */}
         <Link href="/dashboard" className="flex items-center gap-2">
           <Image
@@ -59,16 +59,16 @@ export default function Sidebar({ onLinkClick }: SidebarProps) {
               <Link
                 href={item.href}
                 onClick={onLinkClick}
-                className={`flex items-center gap-3 p-2 rounded-lg transition-all text-sm font-medium
+                className={`flex items-center gap-3 p-2 rounded-lg transition-all text-white text-sm font-medium
                   ${
                     // --- ALTERAÇÃO AQUI ---
                     // Lógica de path exato para o dashboard
                     pathname === item.href || (pathname === "/" && item.href === "/dashboard")
                       ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                      : "text-white hover:bg-black/50"
                   }`}
               >
-                <item.icon className="h-5 w-5" />
+                <item.icon className="h-5 w-5 text-blue-500" />
                 <span>{item.name}</span>
               </Link>
             </li>

@@ -76,23 +76,23 @@ function OrdensServicoPage() {
       <main>
         <Card>
           <CardHeader>
-            <CardTitle className="text-gray-800/50">Lista de O.S.</CardTitle>
+            <CardTitle className="text-white">Lista de O.S.</CardTitle>
             <CardDescription>Filtre e busque para encontrar uma ordem específica.</CardDescription>
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <Input
                 placeholder="Buscar por Nº da O.S. ou nome do cliente..."
-                className="w-full sm:w-80"
+                className="w-full sm:w-80 border border-white/10"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-full sm:w-48">
+                <SelectTrigger className="w-full sm:w-48 rounded-3xl border border-white/10 cursor-pointer">
                   <SelectValue placeholder="Filtrar por status..." />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className='backdrop-blur-lg text-white rounded-3xl'>
                   <SelectItem value="Todos">Todos os Status</SelectItem>
                   {statusOptions.map(status => (
-                    <SelectItem key={status} value={status}>{status}</SelectItem>
+                    <SelectItem key={status} value={status} className='cursor-pointer'>{status}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -121,12 +121,12 @@ function OrdensServicoPage() {
                 ) : ordens && ordens.length > 0 ? (
                   ordens.map((os) => (
                     <TableRow key={os._id}>
-                      <TableCell className="font-mono text-gray-800/50">#{os.numeroOS}</TableCell>
-                      <TableCell className="font-medium text-gray-800/50">{os.cliente.fullName}</TableCell>
-                      <TableCell className='text-gray-800/50'>{formatDate(os.createdAt)}</TableCell>
-                      <TableCell className='text-gray-800/50'>{formatDate(os.previsaoEntrega)}</TableCell>
+                      <TableCell className="font-mono text-white">#{os.numeroOS}</TableCell>
+                      <TableCell className="font-medium text-white">{os.cliente.fullName}</TableCell>
+                      <TableCell className='text-white'>{formatDate(os.createdAt)}</TableCell>
+                      <TableCell className='text-white'>{formatDate(os.previsaoEntrega)}</TableCell>
                       {/* CÉLULA COM O DADO DA NOVA COLUNA */}
-                      <TableCell className='text-gray-800/50'>{formatDate(os.dataEntrega)}</TableCell>
+                      <TableCell className='text-white'>{formatDate(os.dataEntrega)}</TableCell>
                       <TableCell><Badge variant={getStatusVariant(os.status)}>{os.status}</Badge></TableCell>
                       <TableCell>
                         <DropdownMenu>

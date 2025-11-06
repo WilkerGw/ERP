@@ -76,68 +76,30 @@ a {
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-}
-
-:root {
-  --radius: 0.75rem;
-  --background: hsl(210, 40%, 98%); /* Cinza muito claro */
-  --foreground: hsl(215, 28%, 17%); /* Cinza escuro para texto */
-  --card: hsl(0, 0%, 100%); /* Branco */
-  --card-foreground: hsl(215, 28%, 17%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(215, 28%, 17%);
-  --primary: hsl(221, 83%, 53%); /* Azul primário */
-  --primary-foreground: hsl(210, 40%, 98%);
-  --secondary: hsl(210, 40%, 96%);
-  --secondary-foreground: hsl(222, 47%, 11%);
-  --muted: hsl(210, 40%, 96%);
-  --muted-foreground: hsl(215, 16%, 47%);
-  --accent: hsl(210, 40%, 96%);
-  --accent-foreground: hsl(222, 47%, 11%);
-  --destructive: hsl(0, 84%, 60%);
-  --border: hsl(214, 32%, 91%);
-  --input: hsl(214, 32%, 91%);
-  --ring: hsl(221, 83%, 53%);
-  --sidebar: hsl(0, 0%, 100%); /* Branco para a sidebar */
-  --sidebar-foreground: hsl(215, 28%, 17%);
-  --chart-1: hsl(221, 83%, 53%);
-  --chart-2: hsl(166, 67%, 51%);
-  --chart-3: hsl(38, 92%, 56%);
-  --chart-4: hsl(348, 83%, 61%);
-  --chart-5: hsl(262, 83%, 61%);
-}
-
-.dark {
-  /* Paleta para modo escuro (a ser implementada no futuro, se desejar) */
-  --background: hsl(222, 47%, 11%);
-  --foreground: hsl(210, 40%, 98%);
-  --card: hsl(222, 47%, 15%);
-  --card-foreground: hsl(210, 40%, 98%);
-  --popover: hsl(222, 47%, 11%);
-  --popover-foreground: hsl(210, 40%, 98%);
-  --primary: hsl(217, 91%, 60%);
-  --primary-foreground: hsl(222, 47%, 11%);
-  --secondary: hsl(217, 33%, 20%);
-  --secondary-foreground: hsl(210, 40%, 98%);
-  --muted: hsl(217, 33%, 20%);
-  --muted-foreground: hsl(215, 20%, 65%);
-  --accent: hsl(217, 33%, 20%);
-  --accent-foreground: hsl(210, 40%, 98%);
-  --destructive: hsl(0, 63%, 31%);
-  --border: hsl(217, 33%, 25%);
-  --input: hsl(217, 33%, 25%);
-  --ring: hsl(217, 91%, 60%);
-  --sidebar: hsl(222, 47%, 11%);
-  --sidebar-foreground: hsl(210, 40%, 98%);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  
+  /* --- MUDANÇA 4: Aplicamos a imagem de fundo na tag <html> --- */
+  html {
+    /* Substitua 'background.png' pelo nome da sua imagem */
+    @apply bg-[url('/images/background.png')] bg-cover bg-center bg-fixed bg-no-repeat;
+  }
+
   body {
+    /* A classe 'bg-background' agora usa a variável --background, que definimos como 'transparent' */
     @apply bg-background text-foreground;
   }
+
+}
+
+h1, button{
+  color: #ffffff;
+}
+
+p{
+  color: #c4c4c4;
 }

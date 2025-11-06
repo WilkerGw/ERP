@@ -108,7 +108,7 @@ function ClientesPage() {
           <h1 className="text-3xl text-blue-300">Gestão de Clientes</h1>
           <p className="text-muted-foreground">Adicione, edite e visualize os seus clientes.</p>
         </div>
-        <Button onClick={handleAddNew} className="mt-4 sm:mt-0 text-gray-800/50 cursor-pointer">
+        <Button onClick={handleAddNew} className="mt-4 sm:mt-0 text-gray-800/50 cursor-pointer rounded-3xl">
           <PlusCircle className="mr-2 h-4 w-4" />
           Adicionar Novo Cliente
         </Button>

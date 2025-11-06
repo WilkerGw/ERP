@@ -14,8 +14,8 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, content }) => {
   return (
     // A classe h-full garante que todos os cards na mesma linha do grid tenham a mesma altura.
     <Card className="flex flex-col h-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+      <CardHeader className="flex flex-row items-center  space-y-0 pb-2">
+        <CardTitle className="text-lg font-medium text-muted-foreground">
           {title}
         </CardTitle>
         <div className="text-muted-foreground">
@@ -26,7 +26,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, content }) => {
         - "min-h-0" é uma correção para garantir que o overflow funcione corretamente em layouts flex.
       */}
       <CardContent className="flex flex-1 flex-col min-h-0">
-        <div className="text-2xl font-bold">
+        <div className="text-md font-boldm opacity-50">
           {value}
         </div>
         {/* O conteúdo (como a lista de aniversariantes) será renderizado aqui */}

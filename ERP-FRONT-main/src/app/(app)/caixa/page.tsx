@@ -50,8 +50,8 @@ function CaixaPage() {
           <h1 className="text-3xl text-blue-300">Gestão de Caixa</h1>
           <p className="text-muted-foreground">Administre as entradas e saídas de dinheiro.</p>
         </div>
-        <Button onClick={() => setIsDialogOpen(true)} className="mt-4 sm:mt-0 text-gray-800/50">
-          <PlusCircle className="mr-2 h-4 w-4 text-gray-800/50" />
+        <Button onClick={() => setIsDialogOpen(true)} className="mt-4 sm:mt-0 ">
+          <PlusCircle className="mr-2 h-4 w-4 " />
           Nova Transação
         </Button>
       </header>
@@ -61,7 +61,7 @@ function CaixaPage() {
         <div className="md:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className='text-gray-800/50'>Saldo Atual</CardTitle>
+              <CardTitle className=''>Saldo Atual</CardTitle>
               <CardDescription>Valor disponível no caixa.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -82,7 +82,7 @@ function CaixaPage() {
         <div className="md:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle className='text-gray-800/50'>Histórico de Transações</CardTitle>
+              <CardTitle className=''>Histórico de Transações</CardTitle>
               <CardDescription>Últimas movimentações registadas.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -98,7 +98,7 @@ function CaixaPage() {
                 <TableBody>
                   {isLoading ? (
                     <TableRow>
-                      <TableCell colSpan={4} className="text-center h-24 text-gray-800/50">A carregar histórico...</TableCell>
+                      <TableCell colSpan={4} className="text-center h-24 ">A carregar histórico...</TableCell>
                     </TableRow>
                   ) : isError ? (
                     <TableRow>
@@ -114,16 +114,16 @@ function CaixaPage() {
                             <ArrowDownCircle className="h-5 w-5 text-red-500" />
                           )}
                         </TableCell>
-                        <TableCell className="font-medium text-gray-800/50">{transacao.descricao}</TableCell>
-                        <TableCell className='text-gray-800/50'>{new Date(transacao.data).toLocaleDateString('pt-BR')}</TableCell>
-                        <TableCell className={`text-right text-gray-800/50 font-semibold ${transacao.tipo === 'entrada' ? 'text-green-500' : 'text-red-500'}`}>
+                        <TableCell className="font-medium ">{transacao.descricao}</TableCell>
+                        <TableCell className=''>{new Date(transacao.data).toLocaleDateString('pt-BR')}</TableCell>
+                        <TableCell className={`text-right  font-semibold ${transacao.tipo === 'entrada' ? 'text-green-500' : 'text-red-500'}`}>
                           {formatCurrency(transacao.valor)}
                         </TableCell>
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={4} className="text-center h-24 text-gray-800/50">Nenhuma transação encontrada.</TableCell>
+                      <TableCell colSpan={4} className="text-center h-24 ">Nenhuma transação encontrada.</TableCell>
                     </TableRow>
                   )}
                 </TableBody>

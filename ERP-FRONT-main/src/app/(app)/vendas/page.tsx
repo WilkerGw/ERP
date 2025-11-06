@@ -98,7 +98,7 @@ const VendasPage = () => {
     <div className="p-6 md:p-8 lg:p-10 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl text-blue-300">Vendas</h1>
-        <Button asChild className='text-gray-800/50'>
+        <Button asChild className='rounded-3xl'>
           <Link href="/vendas/nova">
             <PlusCircle className="mr-2 h-4 w-4" /> Nova Venda
           </Link>
@@ -107,7 +107,7 @@ const VendasPage = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle className='text-gray-800/50'>Histórico de Vendas</CardTitle>
+          <CardTitle className=''>Histórico de Vendas</CardTitle>
         </CardHeader>
         <CardContent>
           
@@ -117,7 +117,7 @@ const VendasPage = () => {
               placeholder="Buscar por nome do cliente..."
               value={filtroCliente}
               onChange={(e) => setFiltroCliente(e.target.value)}
-              className="max-w-sm border-gray-800/20 text-gray-800/50"
+              className="max-w-sm border-gray-800/20 "
             />
           </div>
 
@@ -139,13 +139,13 @@ const VendasPage = () => {
                 vendasFiltradas.map((venda) => (
                   <TableRow key={venda._id}>
                     {/* --- CÉLULA DO CLIENTE AGORA É UM LINK --- */}
-                    <TableCell className="font-medium text-gray-800/50">
+                    <TableCell className="font-medium ">
                       <Link href={`/vendas/${venda._id}`} className="hover:underline">
                         {venda.cliente?.fullName || 'Cliente não informado'}
                       </Link>
                     </TableCell>
-                    <TableCell className='text-gray-800/50'>{formatDate(venda.dataVenda)}</TableCell>
-                    <TableCell className="text-right text-gray-800/50">{formatCurrency(venda.valorTotal)}</TableCell>
+                    <TableCell className=''>{formatDate(venda.dataVenda)}</TableCell>
+                    <TableCell className="text-right ">{formatCurrency(venda.valorTotal)}</TableCell>
                     <TableCell className="text-right text-red-500">
                       {formatCurrency(venda.pagamento?.valorRestante)}
                     </TableCell>
@@ -179,7 +179,7 @@ const VendasPage = () => {
               ) : (
                 // --- MENSAGEM PARA QUANDO NÃO HÁ RESULTADOS ---
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center text-gray-800/50">
+                  <TableCell colSpan={6} className="text-center ">
                     Nenhuma venda encontrada para este cliente.
                   </TableCell>
                 </TableRow>

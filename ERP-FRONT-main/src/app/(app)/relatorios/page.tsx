@@ -51,7 +51,7 @@ function RelatoriosPage() {
         <p className="text-gray-800/50 mt-1">Análise de performance da sua ótica.</p>
       </header>
       <main className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="lg:col-span-2 bg-white/5 border-blue-300/20 text-gray-800/50">
+        <Card className="lg:col-span-2 border-blue-300/20 text-gray-800/50">
           <CardHeader><CardTitle className="text-blue-300">Fluxo de Caixa Futuro (Próximos 12 Meses)</CardTitle></CardHeader>
           <CardContent>
             <div style={{ width: '100%', height: 300 }}>

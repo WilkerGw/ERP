@@ -50,7 +50,7 @@ function BoletosPage() {
     <div className="p-4 md:p-8">
       <header className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-10">
         <h1 className="text-3xl text-blue-300">Boletos</h1>
-        <Button asChild className="w-full md:w-auto text-gray-800/50">
+        <Button asChild className="w-full md:w-auto ">
           <Link href="/boletos/novo">
           <PlusCircle className="mr-2 h-4 w-4" />
           Gerar Parcelamento</Link>
@@ -59,10 +59,10 @@ function BoletosPage() {
       
       <Tabs value={filtro} onValueChange={setFiltro} className="w-full">
         <TabsList className="grid w-full grid-cols-2 sm:w-auto sm:grid-cols-4 bg-blue-950/20">
-          <TabsTrigger className='text-gray-800/50' value="Todos">Todos</TabsTrigger>
-          <TabsTrigger className='text-gray-800/50' value="Abertos">Abertos</TabsTrigger>
-          <TabsTrigger className='text-gray-800/50' value="Pagos">Pagos</TabsTrigger>
-          <TabsTrigger className='text-gray-800/50' value="Atrasados">Atrasados</TabsTrigger>
+          <TabsTrigger className='' value="Todos">Todos</TabsTrigger>
+          <TabsTrigger className='' value="Abertos">Abertos</TabsTrigger>
+          <TabsTrigger className='' value="Pagos">Pagos</TabsTrigger>
+          <TabsTrigger className='' value="Atrasados">Atrasados</TabsTrigger>
         </TabsList>
 
         <main className="mt-6 space-y-6">
@@ -75,8 +75,8 @@ function BoletosPage() {
                 <CardHeader>
                   <CardTitle className='text-blue-300'>{meses[grupo._id.mes - 1]} de {grupo._id.ano}</CardTitle>
                   <CardDescription className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                    <span className='text-gray-800/50'>Total a Receber: {grupo.valorTotalMes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-                    <span className='text-gray-800/50'>{grupo.pagosNoMes}/{totalBoletos} pagos</span>
+                    <span className=''>Total a Receber: {grupo.valorTotalMes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                    <span className=''>{grupo.pagosNoMes}/{totalBoletos} pagos</span>
                   </CardDescription>
                   <Progress value={progresso} className="w-full mt-2" />
                 </CardHeader>
@@ -103,7 +103,7 @@ function BoletosPage() {
                             </div>
                             <div>
                               <Button
-                              className='text-gray-800/50'
+                              className=''
                                 size="sm"
                                 disabled={boleto.status === 'pago' || isPending}
                                 onClick={() => marcarComoPago(boleto._id)}

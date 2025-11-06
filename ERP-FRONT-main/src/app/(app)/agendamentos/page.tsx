@@ -102,11 +102,11 @@ function AgendamentosPage() {
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
           <Input
             placeholder="Buscar por nome..."
-            className="w-full md:w-80 placeholder:text-gray-800/50"
+            className="w-full md:w-80 placeholder:text-white/50"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <Button onClick={handleCreate} className="text-gray-800/50 cursor-pointer">
+          <Button onClick={handleCreate} className="text-gray-800/50 cursor-pointer rounded-3xl">
             <PlusCircle className="mr-2 h-4 w-4" />
             Novo Agendamento
           </Button>
@@ -130,7 +130,7 @@ function AgendamentosPage() {
         </DialogContent>
       </Dialog>
 
-      <main className="bg-card backdrop-blur-lg border border-border p-6 rounded-xl shadow-xl">
+      <main className="bg-card backdrop-blur-lg border border-white/10 p-6 rounded-2xl shadow-xl">
         <div className="overflow-x-auto">
           <Table className="min-w-[700px]">
             <TableHeader>
@@ -151,22 +151,22 @@ function AgendamentosPage() {
               ) : (
                 agendamentos?.map((ag) => (
                   <TableRow key={ag._id}>
-                    <TableCell className="text-gray-800/70">
+                    <TableCell className="text-white">
                       {new Date(ag.date).toLocaleDateString("pt-BR", {
                         timeZone: "UTC",
                       })}
                     </TableCell>
-                    <TableCell className="text-gray-800/70">
+                    <TableCell className="text-white">
                       {ag.hour}
                     </TableCell>
-                    <TableCell className="font-medium text-gray-800/70">
+                    <TableCell className="font-medium text-white">
                       {ag.name}
                     </TableCell>
-                    <TableCell className="text-gray-800/70">
+                    <TableCell className="text-white">
                       {ag.telephone}
                     </TableCell>
-                    <TableCell className="text-gray-800/70">
-                      <Badge variant={getStatusVariant(ag.status)}>
+                    <TableCell className="text-white">
+                      <Badge variant={getStatusVariant(ag.status)} className="rounded-3xl">
                         {ag.status}
                       </Badge>
                     </TableCell>
@@ -177,7 +177,7 @@ function AgendamentosPage() {
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                        <DropdownMenuContent align="end" className="backdrop-blur-lg text-white border-white/10 rounded-2xl">
                           <DropdownMenuItem asChild className="cursor-pointer">
                             <a
                               href={`https://wa.me/${formatPhoneForWhatsApp(ag.telephone)}`}
