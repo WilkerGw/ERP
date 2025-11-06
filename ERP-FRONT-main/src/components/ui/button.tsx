@@ -18,7 +18,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-blue-300/10 text-white rounded-lg hover:bg-blue-300/20 transition-colors backdrop-blur-sm border border-blue-300/90",
+          "bg-blue-300/10 text-white rounded-2xl hover:bg-blue-300/20 transition-colors backdrop-blur-sm border border-blue-300/90",
         // Mantive a variante 'ghost' para botões de ícone que não devem ter fundo
         ghost:
           "hover:bg-accent/80 hover:text-accent-foreground dark:hover:bg-accent/50",

@@ -8,6 +8,15 @@ import api from '@/services/api';
 import { VendaForm } from '@/components/vendas/VendaForm';
 import { IVendaPopulada } from '@/types/models';
 
+// --- FUNÇÃO AUXILIAR PARA FORMATAR A DATA ---
+// Converte a data para o formato YYYY-MM-DD esperado pelo <input type="date">
+const formatDateForInput = (dateString?: string | Date): string => {
+  if (!dateString) {
+    return new Date().toISOString().split('T')[0];
+  }
+  return new Date(dateString).toISOString().split('T')[0];
+};
+
 const fetchVendaById = async (id: string): Promise<IVendaPopulada> => {
   const { data } = await api.get(`/vendas/${id}`);
   return data;
@@ -41,7 +50,9 @@ const EditarVendaPage = () => {
       quantidade: p.quantidade,
       valorUnitario: p.valorUnitario,
     })),
-    // Agora passamos o valorEntrada diretamente
+    // --- ALTERAÇÃO AQUI ---
+    // Adicionamos o campo dataVenda formatado
+    dataVenda: formatDateForInput(initialData.dataVenda),
     valorEntrada: initialData.pagamento.valorEntrada, 
     condicaoPagamento: initialData.pagamento.condicaoPagamento,
     metodoPagamento: initialData.pagamento.metodoPagamento,

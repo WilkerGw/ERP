@@ -107,8 +107,8 @@ function ProdutosPage() {
       <header className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-10">
         <h1 className="text-3xl text-blue-300">Produtos</h1>
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
-          <Input placeholder="Buscar por nome ou código..." className="w-full md:w-80 placeholder:text-gray-800/50" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-          <Button onClick={handleCreate} className='text-gray-800/50'>
+          <Input placeholder="Buscar por nome ou código..." className="w-full md:w-80 placeholder:text-white" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+          <Button onClick={handleCreate} className='text-white'>
           <PlusCircle className="mr-2 h-4 w-4" />
           Cadastrar Novo Produto</Button>
         </div>
@@ -125,7 +125,7 @@ function ProdutosPage() {
       </Dialog>
       
       {/* --- CORREÇÃO AQUI --- */}
-      <main className="bg-card backdrop-blur-lg border border-border p-6 rounded-xl shadow-xl">
+      <main className="bg-card backdrop-blur-lg border border-white/10 p-6 rounded-2xl shadow-xl">
         <div className="overflow-x-auto">
           <Table className="min-w-[700px]">
             <TableHeader>
@@ -135,15 +135,15 @@ function ProdutosPage() {
               {isLoading ? (<TableRow><TableCell colSpan={6}>Carregando...</TableCell></TableRow>) : 
               produtos?.map((produto) => (
                 <TableRow key={produto._id}>
-                  <TableCell className="font-mono text-gray-800/70">{produto.codigo}</TableCell>
-                  <TableCell className="font-medium text-gray-800/70">{produto.nome}</TableCell>
-                  <TableCell className='text-gray-800/70'>{produto.tipo}</TableCell>
-                  <TableCell className='text-gray-800/70'>{produto.precoVenda.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</TableCell>
-                  <TableCell className='text-gray-800/70'>{produto.estoque}</TableCell>
+                  <TableCell className="font-mono text-white">{produto.codigo}</TableCell>
+                  <TableCell className="font-medium text-white">{produto.nome}</TableCell>
+                  <TableCell className='text-white'>{produto.tipo}</TableCell>
+                  <TableCell className='text-white'>{produto.precoVenda.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</TableCell>
+                  <TableCell className='text-white'>{produto.estoque}</TableCell>
                   <TableCell className="text-right text-blue-500">
                     <DropdownMenu>
-                      <DropdownMenuTrigger asChild><Button variant="ghost" className="h-8 w-8 p-0"><MoreHorizontal className="h-4 w-4" /></Button></DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
+                      <DropdownMenuTrigger asChild><Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer"><MoreHorizontal className="h-4 w-4" /></Button></DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className='text-white border-white/10 rounded-2xl backdrop-blur-md'>
                         <DropdownMenuItem onClick={() => handleEdit(produto)} className="cursor-pointer">Editar</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

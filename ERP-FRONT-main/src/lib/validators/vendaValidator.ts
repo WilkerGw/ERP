@@ -15,8 +15,10 @@ export const vendaFormValidator = z.object({
   clienteId: z.string().nonempty("O cliente é obrigatório."),
   produtos: z.array(produtoVendaValidator).min(1, "Adicione pelo menos um produto à venda."),
   
-  // --- ALTERAÇÃO AQUI ---
-  // Removemos 'porcentagemEntrada' e adicionamos 'valorEntrada'
+  // --- ADICIONADO AQUI ---
+  // Adicionamos a data da venda e uma validação para garantir que ela seja enviada
+  dataVenda: z.string().refine((d) => d && !isNaN(Date.parse(d)), { message: "Data é obrigatória." }),
+
   valorEntrada: z.coerce.number().min(0, "O valor de entrada não pode ser negativo."),
   
   condicaoPagamento: z.enum(['À vista', 'A prazo']),

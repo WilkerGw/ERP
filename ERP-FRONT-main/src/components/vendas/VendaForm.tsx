@@ -36,9 +36,21 @@ interface IProduto {
 }
 
 interface VendaFormProps {
-  initialData?: TVendaFormValidator & { cliente?: ICliente };
+  // --- ALTERAÇÃO AQUI ---
+  // Garantimos que o initialData possa ter o campo dataVenda
+  initialData?: Partial<TVendaFormValidator & { cliente?: ICliente; dataVenda?: string }>;
   vendaId?: string;
 }
+
+// --- FUNÇÃO AUXILIAR PARA FORMATAR A DATA ---
+// Converte a data para o formato YYYY-MM-DD esperado pelo <input type="date">
+const formatDateForInput = (dateString?: string | Date): string => {
+  if (!dateString) {
+    return new Date().toISOString().split('T')[0];
+  }
+  return new Date(dateString).toISOString().split('T')[0];
+};
+
 
 export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
   const router = useRouter();
@@ -56,9 +68,19 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
 
   const form = useForm<TVendaFormValidator>({
     resolver: zodResolver(vendaFormValidator),
-    defaultValues: initialData || {
+    defaultValues: initialData ? 
+    {
+      ...initialData,
+      // --- ALTERAÇÃO AQUI ---
+      // Garante que a data venha formatada corretamente para o input
+      dataVenda: formatDateForInput(initialData.dataVenda),
+    } : 
+    {
       clienteId: '',
       produtos: [],
+      // --- ALTERAÇÃO AQUI ---
+      // Define a data de hoje como padrão para novas vendas
+      dataVenda: formatDateForInput(),
       valorEntrada: 0,
       condicaoPagamento: 'À vista',
       metodoPagamento: 'Dinheiro',
@@ -153,6 +175,9 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
     try {
       const payload = {
         cliente: data.clienteId,
+        // --- ADICIONADO AQUI ---
+        // Passamos a data da venda para o backend
+        dataVenda: data.dataVenda, 
         produtos: data.produtos.map(p => ({
             produto: p.produtoId,
             quantidade: p.quantidade,
@@ -193,7 +218,7 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <Card>
-            <CardHeader><CardTitle className='text-gray-800/50'>1. Cliente</CardTitle></CardHeader>
+            <CardHeader><CardTitle className='text-white'>1. Cliente</CardTitle></CardHeader>
             <CardContent>
               {!isEditMode && !clienteSelecionado ? (
                 <div className="relative">
@@ -222,9 +247,9 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
                   />
                   {/* Dropdown de resultados */}
                   {clientes.length > 0 && (
-                    <ul className="absolute z-20 w-full bg-white border rounded-md mt-1 max-h-60 overflow-y-auto shadow-lg">
+                    <ul className="absolute z-100 w-full border rounded-2xl mt-1 max-h-60 overflow-y-auto shadow-lg">
                       {clientes.map(cliente => (
-                        <li key={cliente._id} onClick={() => selecionarCliente(cliente)} className="p-2 hover:bg-gray-100 cursor-pointer text-gray-800">
+                        <li key={cliente._id} onClick={() => selecionarCliente(cliente)} className="p-2 backdrop-blur-[4px] cursor-pointer text-white z-10">
                           {cliente.fullName}
                         </li>
                       ))}
@@ -242,10 +267,10 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
                 </div>
               ) : null }
               {clienteSelecionado && (
-                <div className="mt-4 p-3 bg-gray-50 rounded-md flex justify-between items-center">
+                <div className="mt-4 p-3 rounded-md flex justify-between items-center">
                   <div>
-                    <p className="font-semibold text-gray-800/50">Cliente Selecionado:</p>
-                    <p className='text-gray-800/50'>{clienteSelecionado.fullName}</p>
+                    <p className="font-semibold text-white">Cliente Selecionado:</p>
+                    <p className='text-white'>{clienteSelecionado.fullName}</p>
                   </div>
                   {!isEditMode && (
                     <Button variant="outline" size="sm" onClick={() => setClienteSelecionado(null)}>
@@ -258,8 +283,8 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader><CardTitle className='text-gray-800/50'>2. Produtos</CardTitle></CardHeader>
+          <Card className="mt-[3rem]">
+            <CardHeader><CardTitle className='text-white'>2. Produtos</CardTitle></CardHeader>
             <CardContent>
               <div className="relative mb-4">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -270,7 +295,7 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
                   className="pl-10"
                 />
                 {produtos.length > 0 && (
-                  <ul className="absolute z-10 w-full bg-white border rounded-md mt-1 max-h-60 overflow-y-auto shadow-lg">
+                  <ul className="absolute z-10 w-full border rounded-md mt-1 max-h-60 overflow-y-auto shadow-lg">
                     {produtos.map(produto => (
                       <li key={produto._id} onClick={() => adicionarProduto(produto)} className="p-2 hover:bg-gray-100 cursor-pointer text-gray-800">
                         {produto.nome}
@@ -292,14 +317,14 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
                 <TableBody>
                   {fields.map((field, index) => (
                     <TableRow key={field.id}>
-                      <TableCell className='text-gray-800/50'>{field.nome}</TableCell>
+                      <TableCell className='text-white'>{field.nome}</TableCell>
                       <TableCell>
                         <FormField control={form.control} name={`produtos.${index}.quantidade`} render={({ field }) => (<Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />)} />
                       </TableCell>
                       <TableCell>
                         <FormField control={form.control} name={`produtos.${index}.valorUnitario`} render={({ field }) => (<Input type="number" step="0.01" {...field} onChange={e => field.onChange(Number(e.target.value))} />)} />
                       </TableCell>
-                      <TableCell className="text-right text-gray-800/50">{formatCurrency(produtosDaVenda[index].quantidade * produtosDaVenda[index].valorUnitario)}</TableCell>
+                      <TableCell className="text-right text-white">{formatCurrency(produtosDaVenda[index].quantidade * produtosDaVenda[index].valorUnitario)}</TableCell>
                       <TableCell>
                         <Button variant="ghost" size="icon" onClick={() => remove(index)}><Trash2 className="h-4 w-4 text-red-500" /></Button>
                       </TableCell>
@@ -312,14 +337,30 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
           </Card>
 
           <Card>
-            <CardHeader><CardTitle>3. Pagamento</CardTitle></CardHeader>
+            <CardHeader><CardTitle>3. Pagamento e Data</CardTitle></CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              
+              {/* --- CAMPO DE DATA ADICIONADO AQUI --- */}
+              <FormField 
+                control={form.control} 
+                name="dataVenda" 
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Data da Venda</FormLabel>
+                    <FormControl>
+                      <Input type="date" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} 
+              />
+
               <FormField control={form.control} name="valorEntrada" render={({ field }) => (<FormItem><FormLabel>Entrada (R$)</FormLabel><FormControl><Input type="number" step="0.01" placeholder="Ex: 100,00" {...field} onChange={e => field.onChange(Number(e.target.value))} /></FormControl><FormMessage /></FormItem>)} />
               <FormField control={form.control} name="condicaoPagamento" render={({ field }) => (<FormItem><FormLabel>Condição</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Selecione a condição" /></SelectTrigger></FormControl><SelectContent><SelectItem value="À vista">À vista</SelectItem><SelectItem value="A prazo">A prazo</SelectItem></SelectContent></Select><FormMessage /></FormItem>)} />
               <FormField control={form.control} name="metodoPagamento" render={({ field }) => (<FormItem><FormLabel>Forma de Pagamento</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Selecione a forma" /></SelectTrigger></FormControl><SelectContent><SelectItem value="Dinheiro">Dinheiro</SelectItem><SelectItem value="Cartão de Crédito">Cartão de Crédito</SelectItem><SelectItem value="Cartão de Débito">Cartão de Débito</SelectItem><SelectItem value="PIX">PIX</SelectItem><SelectItem value="Boleto">Boleto</SelectItem></SelectContent></Select><FormMessage /></FormItem>)} />
               {condicaoPagamento === 'A prazo' && (<FormField control={form.control} name="parcelas" render={({ field }) => (<FormItem><FormLabel>Parcelas</FormLabel><FormControl><Input type="number" placeholder="Ex: 3" {...field} onChange={e => field.onChange(Number(e.target.value))} /></FormControl><FormMessage /></FormItem>)} />)}
             </CardContent>
-            <CardFooter className="flex justify-end bg-gray-50 p-4 rounded-b-md text-gray-800/50">
+            <CardFooter className="flex justify-end p-4 rounded-b-md text-white">
               <div className='text-right'>
                 <p>Valor de Entrada: <span className='font-bold'>{formatCurrency(valorEntrada)} ({porcentagemEntradaCalculada.toFixed(2)}%)</span></p>
                 <p>Valor Restante: <span className='font-bold'>{formatCurrency(valorRestante)}</span></p>
@@ -329,7 +370,7 @@ export const VendaForm = ({ initialData, vendaId }: VendaFormProps) => {
           </Card>
 
           <div className="flex justify-end">
-            <Button type="submit" disabled={form.formState.isSubmitting} className='text-gray-800/50 cursor-pointer'>
+            <Button type="submit" disabled={form.formState.isSubmitting} className='text-white cursor-pointer'>
               {form.formState.isSubmitting ? 'Salvando...' : (isEditMode ? 'Atualizar Venda' : 'Finalizar Venda')}
             </Button>
           </div>

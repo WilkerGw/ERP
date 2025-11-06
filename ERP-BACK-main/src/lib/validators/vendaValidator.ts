@@ -23,6 +23,10 @@ export const vendaValidator = z.object({
   cliente: z.string().nonempty("O cliente é obrigatório."),
   produtos: z.array(produtoVendaValidator).min(1, "Adicione pelo menos um produto à venda."),
   pagamento: pagamentoValidator,
+  // --- ADICIONADO AQUI ---
+  // Tornamos opcional para que, se não for enviado,
+  // o Mongoose use o valor `default: Date.now` do Model.
+  dataVenda: z.string().optional(), 
 });
 
 export type TVendaValidator = z.infer<typeof vendaValidator>;

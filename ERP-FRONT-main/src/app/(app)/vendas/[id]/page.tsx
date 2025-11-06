@@ -85,7 +85,7 @@ const DetalhesVendaPage = () => {
     <div className="container mx-auto p-4 md:p-8">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <Button className='opacity-50' variant="outline" size="sm" asChild>
+          <Button className=' text-white' variant="outline" size="sm" asChild>
             <Link href="/vendas">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Voltar para Vendas
@@ -96,7 +96,7 @@ const DetalhesVendaPage = () => {
         </div>
         <div className="flex flex-wrap gap-2 opacity-50">
            {venda.status === 'Pendente' && (
-             <Button className='text-gray-800/50' 
+             <Button className='text-white' 
                 onClick={handleMarcarConcluido} 
                 disabled={updateStatusMutation.isPending}
                 variant="default"
@@ -105,7 +105,7 @@ const DetalhesVendaPage = () => {
                {updateStatusMutation.isPending ? 'Marcando...' : 'Marcar como Concluído'}
              </Button>
            )}
-           <Button variant="outline" asChild>
+           <Button variant="outline" asChild className='text-white'>
              <Link href={`/vendas/${id}/editar`}>
                <Edit className="mr-2 h-4 w-4" />
                Editar Venda
@@ -121,7 +121,7 @@ const DetalhesVendaPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 space-y-6">
           <Card>
-            <CardHeader><CardTitle className='text-gray-800/50'>Cliente</CardTitle></CardHeader>
+            <CardHeader><CardTitle className='text-white'>Cliente</CardTitle></CardHeader>
             <CardContent>
               <p className="text-2xl text-blue-300">{venda.cliente.fullName}</p>
               <p className="text-muted-foreground">{venda.cliente.email}</p>
@@ -129,7 +129,7 @@ const DetalhesVendaPage = () => {
             </CardContent>
           </Card>
           <Card>
-            <CardHeader><CardTitle className='text-gray-800/50'>Resumo do Pagamento</CardTitle></CardHeader>
+            <CardHeader><CardTitle className='text-white'>Resumo do Pagamento</CardTitle></CardHeader>
             <CardContent className="space-y-2 opacity-80">
                 <div className="flex justify-between"><span>Valor Total:</span> <strong>{formatCurrency(venda.valorTotal)}</strong></div>
                 <div className="flex justify-between"><span>Entrada:</span> <span>{formatCurrency(venda.pagamento.valorEntrada)}</span></div>
@@ -143,7 +143,7 @@ const DetalhesVendaPage = () => {
         <div className="lg:col-span-2 space-y-6">
           <Card>
             <CardHeader className="flex flex-row justify-between items-center">
-              <CardTitle className='text-gray-800/50'>Itens da Venda ({venda.produtos.length})</CardTitle>
+              <CardTitle className='text-white'>Itens da Venda ({venda.produtos.length})</CardTitle>
                <Badge variant={venda.status === 'Concluído' ? 'default' : 'secondary'}>{venda.status}</Badge>
             </CardHeader>
             <CardContent>
@@ -159,16 +159,16 @@ const DetalhesVendaPage = () => {
                 <TableBody>
                   {venda.produtos.map((item, index) => (
                     <TableRow key={index}>
-                      <TableCell className='text-gray-800/50'>{item.produto?.nome || 'Produto não encontrado'}</TableCell>
-                      <TableCell className="text-center text-gray-800/50">{item.quantidade}</TableCell>
-                      <TableCell className="text-right text-gray-800/50">{formatCurrency(item.valorUnitario)}</TableCell>
-                      <TableCell className="text-right text-gray-800/50">{formatCurrency(item.quantidade * item.valorUnitario)}</TableCell>
+                      <TableCell className='text-white'>{item.produto?.nome || 'Produto não encontrado'}</TableCell>
+                      <TableCell className="text-center text-white">{item.quantidade}</TableCell>
+                      <TableCell className="text-right text-white">{formatCurrency(item.valorUnitario)}</TableCell>
+                      <TableCell className="text-right text-white">{formatCurrency(item.quantidade * item.valorUnitario)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </CardContent>
-             <CardFooter className="flex justify-end bg-gray-50 p-4 font-bold text-xl opacity-80">
+             <CardFooter className="flex justify-end p-4 font-bold text-xl opacity-80">
                 <span>Total: {formatCurrency(venda.valorTotal)}</span>
              </CardFooter>
           </Card>

@@ -24,7 +24,9 @@ export const createVenda = async (req: Request, res: Response) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const { cliente: clienteId, produtos, pagamento } = req.body;
+    // --- ALTERAÇÃO AQUI ---
+    // Capturamos a dataVenda do corpo da requisição
+    const { cliente: clienteId, produtos, pagamento, dataVenda } = req.body;
     console.log(`[LOG] Venda para o cliente ID: ${clienteId}`);
 
     // 1. Validação de Estoque
@@ -42,7 +44,22 @@ export const createVenda = async (req: Request, res: Response) => {
 
     // 2. Cálculo do Valor Total e Criação da Venda
     const valorTotal = produtos.reduce((acc: number, item: any) => acc + (item.quantidade * item.valorUnitario), 0);
-    const novaVenda = new Venda({ cliente: clienteId, produtos, valorTotal, pagamento, status: 'Pendente' });
+
+    // --- ALTERAÇÃO AQUI ---
+    // Criamos um objeto de dados e adicionamos a dataVenda se ela existir
+    const dadosVenda: any = {
+      cliente: clienteId,
+      produtos,
+      valorTotal,
+      pagamento,
+      status: 'Pendente'
+    };
+
+    if (dataVenda) {
+      dadosVenda.dataVenda = dataVenda;
+    }
+    // Usamos o objeto dadosVenda para criar a nova Venda
+    const novaVenda = new Venda(dadosVenda);
     await novaVenda.save({ session });
     console.log(`[LOG] Venda ${novaVenda._id} salva com sucesso.`);
 

@@ -186,7 +186,7 @@ export default function AgendamentoForm({
         <Button
           type="submit"
           disabled={isPending}
-          className="w-44 text-gray-800/50 cursor-pointer"
+          className="w-44 text-gray-800/50 cursor-pointer rounded-2xl"
         >
           {isPending ? <div className="loader"></div> : "Salvar Agendamento"}
         </Button>

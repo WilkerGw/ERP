@@ -81,7 +81,7 @@ function DetalhesOrdemServicoPage() {
             <Toaster richColors position="top-right" />
             <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <div>
-                    <Button variant="outline" size="sm" asChild>
+                    <Button variant="outline" size="sm" asChild className='cursor-pointer text-white border border-white/10 rounded-2xl'>
                         <Link href="/ordens-servico"><ArrowLeft className="mr-2 h-4 w-4" /> Voltar</Link>
                     </Button>
                     <h1 className="text-3xl font-bold mt-2">OS<div className="text-3xl text-blue-300">#{os.numeroOS}</div></h1>
@@ -130,9 +130,9 @@ function DetalhesOrdemServicoPage() {
                     <Card>
                         <CardHeader><CardTitle className="flex items-center gap-2 text-blue-300"><User /> Cliente</CardTitle></CardHeader>
                         <CardContent>
-                            <p className="font-semibold text-lg text-gray-800/50">{os.cliente.fullName}</p>
+                            <p className="font-semibold text-lg text-white">{os.cliente.fullName}</p>
                             <p className="text-muted-foreground">{os.cliente.email}</p>
-                            <p className="text-gray-800/50 text-sm">{os.cliente.phone}</p>
+                            <p className="text-white text-sm">{os.cliente.phone}</p>
                         </CardContent>
                     </Card>
                 </div>
@@ -142,15 +142,15 @@ function DetalhesOrdemServicoPage() {
                         <CardHeader><CardTitle className="flex items-center gap-2 text-blue-300"><Receipt /> Dados da Receita</CardTitle></CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-                                <div className="font-bold col-span-2 sm:col-span-4 text-gray-800/50">Olho Direito (OD)</div>
+                                <div className="font-bold col-span-2 sm:col-span-4 text-white">Olho Direito (OD)</div>
                                 <div><span className="text-muted-foreground">Esférico:</span> {os.receita.esfericoDireito || '--'}</div>
                                 <div><span className="text-muted-foreground">Cilíndrico:</span> {os.receita.cilindricoDireito || '--'}</div>
                                 <div><span className="text-muted-foreground">Eixo:</span> {os.receita.eixoDireito || '--'}</div>
-                                <div className="font-bold col-span-2 sm:col-span-4 mt-2 text-gray-800/50">Olho Esquerdo (OE)</div>
+                                <div className="font-bold col-span-2 sm:col-span-4 mt-2 text-white">Olho Esquerdo (OE)</div>
                                 <div><span className="text-muted-foreground">Esférico:</span> {os.receita.esfericoEsquerdo || '--'}</div>
                                 <div><span className="text-muted-foreground">Cilíndrico:</span> {os.receita.cilindricoEsquerdo || '--'}</div>
                                 <div><span className="text-muted-foreground">Eixo:</span> {os.receita.eixoEsquerdo || '--'}</div>
-                                <div className="font-bold col-span-2 sm:col-span-4 mt-2 text-gray-800/50">Adicionais</div>
+                                <div className="font-bold col-span-2 sm:col-span-4 mt-2 text-white">Adicionais</div>
                                 <div><span className="text-muted-foreground">Adição:</span> {os.receita.adicao || '--'}</div>
                                 <div><span className="text-muted-foreground">Altura:</span> {os.receita.altura || '--'}</div>
                                 <div><span className="text-muted-foreground">DP:</span> {os.receita.dp || '--'}</div>

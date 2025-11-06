@@ -106,7 +106,7 @@ export default function AddClientForm({ onSuccess, initialData }: AddClientFormP
             <FormField control={form.control} name="vencimentoReceita" render={({ field }) => (<FormItem><FormLabel>Vencimento da Receita</FormLabel><FormControl><Input type="date" {...field} /></FormControl></FormItem>)} />
         </div>
         <FormField control={form.control} name="notes" render={({ field }) => (<FormItem><FormLabel>Observações</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem>)} />
-        <Button className='text-gray-800/50 cursor-pointer' type="submit" disabled={isPending}>
+        <Button className='text-gray-800/50 cursor-pointer rounded-2xl' type="submit" disabled={isPending}>
           {isPending ? 'Salvando...' : (isEditing ? 'Salvar Alterações' : 'Cadastrar Cliente')}
         </Button>
       </form>

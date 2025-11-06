@@ -162,7 +162,7 @@ const VendasPage = () => {
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
+                        <DropdownMenuContent align="end" className='border-white/10 rounded-2xl backdrop-blur-md text-white'>
                            <DropdownMenuItem>
                              <Link href={`/vendas/${venda._id}`} className="w-full h-full">
                               Ver Detalhes

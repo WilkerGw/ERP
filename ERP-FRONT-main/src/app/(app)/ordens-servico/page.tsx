@@ -136,8 +136,8 @@ function OrdensServicoPage() {
                               <span className="sr-only">Menu</span>
                             </Button>
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem asChild>
+                          <DropdownMenuContent align="end" className='border-white/10 text-white rounded-2xl backdrop-blur-lg'>
+                            <DropdownMenuItem asChild className='cursor-pointer'>
                                 <Link href={`/ordens-servico/${os._id}`}>Ver Detalhes</Link>
                             </DropdownMenuItem>
                           </DropdownMenuContent>

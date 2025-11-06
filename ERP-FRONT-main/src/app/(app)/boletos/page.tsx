@@ -58,11 +58,11 @@ function BoletosPage() {
       </header>
       
       <Tabs value={filtro} onValueChange={setFiltro} className="w-full">
-        <TabsList className="grid w-full grid-cols-2 sm:w-auto sm:grid-cols-4 bg-blue-950/20">
-          <TabsTrigger className='' value="Todos">Todos</TabsTrigger>
-          <TabsTrigger className='' value="Abertos">Abertos</TabsTrigger>
-          <TabsTrigger className='' value="Pagos">Pagos</TabsTrigger>
-          <TabsTrigger className='' value="Atrasados">Atrasados</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 sm:w-auto sm:grid-cols-4 backdrop-blur-2xl border border-white/10 rounded-2xl overflow-hidden">
+          <TabsTrigger className='cursor-pointer' value="Todos">Todos</TabsTrigger>
+          <TabsTrigger className='cursor-pointer' value="Abertos">Abertos</TabsTrigger>
+          <TabsTrigger className='cursor-pointer' value="Pagos">Pagos</TabsTrigger>
+          <TabsTrigger className='cursor-pointer' value="Atrasados">Atrasados</TabsTrigger>
         </TabsList>
 
         <main className="mt-6 space-y-6">
@@ -81,7 +81,7 @@ function BoletosPage() {
                   <Progress value={progresso} className="w-full mt-2" />
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
+                  <div className="space-y-2 mt-[1rem]">
                     {grupo.boletos.map(boleto => {
                       const hoje = new Date();
                       hoje.setHours(0,0,0,0);
@@ -89,13 +89,13 @@ function BoletosPage() {
                       return (
                         // --- CORREÇÃO AQUI ---
                         // Aplicamos um fundo sutil e borda aos itens da lista para melhor contraste
-                        <div key={boleto._id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-3 rounded-md border bg-background/30 border-border">
+                        <div key={boleto._id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-3 border border-white/10 rounded-2xl">
                           <div className="flex flex-col text-center sm:text-left">
-                            <span className="font-semibold text-gray-800/70">{boleto.clienteInfo.fullName}</span>
-                            <span className="text-sm text-gray-800/70">{boleto.description}</span>
+                            <span className="font-semibold text-white">{boleto.clienteInfo.fullName}</span>
+                            <span className="text-sm text-white">{boleto.description}</span>
                           </div>
                           <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-center sm:text-right">
-                            <div className="text-sm text-gray-800">Venc.: {new Date(boleto.dueDate).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}</div>
+                            <div className="text-sm text-white">Venc.: {new Date(boleto.dueDate).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}</div>
                             <div>
                               <span className={`font-bold text-blue-300 text-lg ${isAtrasado ? 'text-destructive' : ''}`}>
                                 {boleto.parcelValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
@@ -103,7 +103,7 @@ function BoletosPage() {
                             </div>
                             <div>
                               <Button
-                              className=''
+                              className='rounded-2xl'
                                 size="sm"
                                 disabled={boleto.status === 'pago' || isPending}
                                 onClick={() => marcarComoPago(boleto._id)}

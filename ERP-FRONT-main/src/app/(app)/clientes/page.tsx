@@ -108,7 +108,7 @@ function ClientesPage() {
           <h1 className="text-3xl text-blue-300">Gestão de Clientes</h1>
           <p className="text-muted-foreground">Adicione, edite e visualize os seus clientes.</p>
         </div>
-        <Button onClick={handleAddNew} className="mt-4 sm:mt-0 text-gray-800/50 cursor-pointer rounded-3xl">
+        <Button onClick={handleAddNew} className="mt-4 sm:mt-0 text-white cursor-pointer rounded-3xl">
           <PlusCircle className="mr-2 h-4 w-4" />
           Adicionar Novo Cliente
         </Button>
@@ -117,7 +117,7 @@ function ClientesPage() {
       <main>
         <Card>
           <CardHeader>
-            <CardTitle className="text-gray-800/50">Lista de Clientes</CardTitle>
+            <CardTitle className="text-white">Lista de Clientes</CardTitle>
             <CardDescription>
               Acompanhe e gira todos os seus clientes num só lugar.
             </CardDescription>
@@ -146,9 +146,9 @@ function ClientesPage() {
                 ) : clientes && clientes.length > 0 ? (
                   clientes.map((cliente) => (
                     <TableRow key={cliente._id}>
-                      <TableCell className="font-medium text-gray-800/70">{cliente.fullName}</TableCell>
-                      <TableCell className='text-gray-800/70'>{cliente.cpf}</TableCell>
-                      <TableCell className='text-gray-800/70'>{cliente.phone}</TableCell>
+                      <TableCell className="font-medium text-white">{cliente.fullName}</TableCell>
+                      <TableCell className='text-white'>{cliente.cpf}</TableCell>
+                      <TableCell className='text-white'>{cliente.phone}</TableCell>
                       <TableCell className='text-blue-500'>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
@@ -157,9 +157,9 @@ function ClientesPage() {
                               <span className="sr-only">Menu</span>
                             </Button>
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => handleEdit(cliente)}>Editar</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleDelete(cliente._id)} className="text-destructive focus:text-destructive">
+                          <DropdownMenuContent align="end" className='text-white backdrop-blur-[4px] rounded-2xl border-white/10'>
+                            <DropdownMenuItem onClick={() => handleEdit(cliente)} className="cursor-pointer">Editar</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleDelete(cliente._id)} className="cursor-pointer">
                               Apagar
                             </DropdownMenuItem>
                           </DropdownMenuContent>
