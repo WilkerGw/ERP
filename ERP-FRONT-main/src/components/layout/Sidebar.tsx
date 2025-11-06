@@ -13,7 +13,8 @@ import {
   Calendar,
   BarChart3,
   Landmark,
-  ClipboardList, // Ícone para a Ordem de Serviço
+  ClipboardList,
+  TrendingUp, // --- ÍCONE ADICIONADO ---
 } from "lucide-react";
 import Image from "next/image";
 
@@ -22,10 +23,12 @@ import Image from "next/image";
 const navItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Relatórios", href: "/relatorios", icon: BarChart3 },
+  // --- NOVO ITEM ADICIONADO ---
+  { name: "Comparativo Anual", href: "/comparativo-anual", icon: TrendingUp },
   { name: "Agendamentos", href: "/agendamentos", icon: Calendar },
   { name: "Clientes", href: "/clientes", icon: Users },
   { name: "Vendas", href: "/vendas", icon: ShoppingCart },
-  { name: "Ordens de Serviço", href: "/ordens-servico", icon: ClipboardList }, // NOVO ITEM AQUI
+  { name: "Ordens de Serviço", href: "/ordens-servico", icon: ClipboardList },
   { name: "Boletos", href: "/boletos", icon: FileText },
   { name: "Produtos", href: "/produtos", icon: Package },
   { name: "Caixa", href: "/caixa", icon: Landmark },

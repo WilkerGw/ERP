@@ -106,3 +106,92 @@ export const getFluxoCaixaFuturo = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Erro ao buscar fluxo de caixa', error: error.message });
   }
 };
+
+// --- NOVA FUNÇÃO ADICIONADA ---
+/**
+ * Documentação:
+ * Esta função busca as vendas concluídas do ano atual e do ano anterior.
+ * Ela agrupa os dados por mês e formata a saída para ser facilmente
+ * consumida por um gráfico de barras comparativo.
+ */
+export const getComparativoVendasAnual = async (req: Request, res: Response) => {
+  try {
+    const dataAtual = new Date();
+    const anoAtual = dataAtual.getUTCFullYear();
+    const anoAnterior = anoAtual - 1;
+
+    // 1. Busca os dados no banco
+    const dados = await Venda.aggregate([
+      {
+        $match: {
+          status: 'Concluído',
+          // Filtra apenas por vendas no ano atual ou anterior
+          $expr: {
+            $in: [{ $year: "$dataVenda" }, [anoAtual, anoAnterior]]
+          }
+        }
+      },
+      {
+        // Agrupa por mês e ano, somando o total
+        $group: {
+          _id: {
+            ano: { $year: "$dataVenda" },
+            mes: { $month: "$dataVenda" }
+          },
+          total: { $sum: "$valorTotal" }
+        }
+      },
+      {
+        // Agrupa novamente, desta vez apenas pelo mês
+        $group: {
+          _id: "$_id.mes", // _id agora é o número do mês (1-12)
+          vendas: {
+            $push: {
+              ano: "$_id.ano",
+              total: "$total"
+            }
+          }
+        }
+      },
+      { $sort: { _id: 1 } } // Ordena pelo mês
+    ]);
+
+    // 2. Formata os dados para o gráfico
+    // Cria um array com 12 posições (Jan-Dez)
+    const resultado = meses.map((mes, index) => {
+      const mesNum = index + 1; // O mês no MongoDB é (1-12)
+      
+      // Encontra os dados para este mês
+      const dadosMes = dados.find(d => d._id === mesNum);
+
+      let totalAnoAtual = 0;
+      let totalAnoAnterior = 0;
+
+      if (dadosMes) {
+        // Procura pela venda do ano atual neste mês
+        const vendaAnoAtual = dadosMes.vendas.find((v: any) => v.ano === anoAtual);
+        if (vendaAnoAtual) {
+          totalAnoAtual = vendaAnoAtual.total;
+        }
+
+        // Procura pela venda do ano anterior neste mês
+        const vendaAnoAnterior = dadosMes.vendas.find((v: any) => v.ano === anoAnterior);
+        if (vendaAnoAnterior) {
+          totalAnoAnterior = vendaAnoAnterior.total;
+        }
+      }
+
+      return {
+        mes: mes,
+        "Ano Atual": totalAnoAtual,
+        "Ano Anterior": totalAnoAnterior
+      };
+    });
+
+    res.status(200).json(resultado);
+
+  } catch (error: any) {
+    res.status(500).json({ message: 'Erro ao buscar comparativo anual', error: error.message });
+  }
+};
+// --- FIM DA NOVA FUNÇÃO ---
